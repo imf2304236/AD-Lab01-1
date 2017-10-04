@@ -13,6 +13,7 @@ public class ArithmeticTerm {
      * @param input String to be stored as the expression field
      */
     public ArithmeticTerm(String input) {
+
         expression = input;
     }
 
@@ -57,6 +58,8 @@ public class ArithmeticTerm {
         double value;
         StringTokenizer tokenizer = new StringTokenizer(expression);
         Stack<Double> doubleStack = new Stack<>();
+        double value1, value2;
+
 
         while (tokenizer.hasMoreTokens()) {
             String currentToken = tokenizer.nextToken();
@@ -66,23 +69,29 @@ public class ArithmeticTerm {
                 d = Double.parseDouble(currentToken);
                 doubleStack.push(d);
             } catch (NumberFormatException e) {
+
+
                 switch (currentToken) {
                     case "+":
                         doubleStack.push(doubleStack.pop() + doubleStack.pop());
                         break;
-                    case "-":   // TODO: Fix order of operations
-                        double value2 = doubleStack.pop();
-                        double value1 = doubleStack.pop();
+                    case "-":
+                        value2 = doubleStack.pop();
+                        value1 = doubleStack.pop();
                         doubleStack.push(value1 - value2);
                         break;
                     case "*":
                         doubleStack.push(doubleStack.pop() * doubleStack.pop());
                         break;
-                    case "/":   // TODO: Fix order of operations
-                        doubleStack.push(doubleStack.pop() / doubleStack.pop());
+                    case "/":
+                        value2 = doubleStack.pop();
+                        value1 = doubleStack.pop();
+                        doubleStack.push(value1 / value2);
                         break;
-                    case "%":   // TODO: Fix order of operations
-                        doubleStack.push(doubleStack.pop() % doubleStack.pop());
+                    case "%":
+                        value2 = doubleStack.pop();
+                        value1 = doubleStack.pop();
+                        doubleStack.push(value1 % value2);
                         break;
                     default:
                         throw new IllegalArgumentException(
@@ -101,21 +110,24 @@ public class ArithmeticTerm {
      * Test method
      */
     public static void main(String[] args) {
-        double value;
-
         // Constructor test
         ArithmeticTerm term = new ArithmeticTerm("1 2 3 4 5");
 
         // toString() test
-        System.out.println(term.toString());
+        System.out.println("term.toString() : " + term.toString());
 
         // reverse() test
         term.reverse();
-        System.out.println(term.toString());
+        System.out.println("term.reverse() : " + term.toString());
 
+        // evaluate() test
         ArithmeticTerm term2 = new ArithmeticTerm("5.1 9 8.88 + 4 6 * * 7 + *");
-        value = term2.evaluate();
+        System.out.printf("\nterm2 : %s", term2.toString());
+        System.out.printf("\nterm2.evaluate() : %f", term2.evaluate());
+
+        // Illegal character
         ArithmeticTerm term3 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
-        value = term3.evaluate();
+        System.out.printf("\nterm3 : %s", term3.toString());
+        System.out.printf("\nterm3.evaluate() : %f", term3.evaluate());
     }
 }
