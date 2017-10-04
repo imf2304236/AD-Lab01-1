@@ -139,26 +139,39 @@ public class ArithmeticTerm {
 
     /**
      * Test method
+     * @param args
      */
     public static void main(String[] args) {
         // Constructor test
         ArithmeticTerm term = new ArithmeticTerm("1 2 3 4 5");
 
         // toString() test
-        System.out.println("term.toString() : " + term.toString());
+        System.out.println("term.toString()      : " + term.toString());
 
         // reverse() test
         term.reverse();
-        System.out.println("term.reverse() : " + term.toString());
+        System.out.println("term.reverse()       : " + term.toString());
 
         // evaluate() test
         ArithmeticTerm term2 = new ArithmeticTerm("5.1 9 8.88 + 4 6 * * 7 + *");
-        System.out.printf("\nterm2 : %s", term2.toString());
-        System.out.printf("\nterm2.evaluate() : %f", term2.evaluate());
+        System.out.println("term2.toString()     : " + term2.toString());
+        System.out.printf("term2.evaluate()     : %f\n", term2.evaluate());
 
-        // Illegal character
-        ArithmeticTerm term3 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
-        System.out.printf("\nterm3 : %s", term3.toString());
-        System.out.printf("\nterm3.evaluate() : %f", term3.evaluate());
+        // Illegal character test
+        ArithmeticTerm term4 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
+        System.out.printf("term4.toString()     : %s\n", term4.toString());
+        System.out.printf("\nterm4.evaluate()    : %f", term4.evaluate());
+    }
+
+    /**
+     * Second test method
+     * @param args
+     */
+    public static void main2(String[] args) {
+        // convert() test
+        ArithmeticTerm term3 = new ArithmeticTerm("( ( 4.3 * 1e-1 ) - .4 )");
+        System.out.println("term3.convert()      : " + term3.convert());
+        System.out.printf("term3.evaluate()     : %f\n", term3.evaluate());
+
     }
 }
