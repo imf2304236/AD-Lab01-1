@@ -1,5 +1,3 @@
-import java.io.*;
-import java.util.Scanner;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
@@ -53,9 +51,9 @@ public class ArithmeticTerm {
     /**
      * Method to evaluate the Postfix expression field
      * @return double value which the expression field evaluates to
-     * @throws NumberFormatException if a
+     * @throws IllegalArgumentException if an unknown character is detected in string
      */
-    public double evaluate() throws NumberFormatException {
+    public double evaluate() throws IllegalArgumentException {
         double value;
         StringTokenizer tokenizer = new StringTokenizer(expression);
         Stack<Double> doubleStack = new Stack<>();
@@ -72,16 +70,18 @@ public class ArithmeticTerm {
                     case "+":
                         doubleStack.push(doubleStack.pop() + doubleStack.pop());
                         break;
-                    case "-":
-                        doubleStack.push(doubleStack.pop() - doubleStack.pop());
+                    case "-":   // TODO: Fix order of operations
+                        double value2 = doubleStack.pop();
+                        double value1 = doubleStack.pop();
+                        doubleStack.push(value1 - value2);
                         break;
                     case "*":
                         doubleStack.push(doubleStack.pop() * doubleStack.pop());
                         break;
-                    case "/":
+                    case "/":   // TODO: Fix order of operations
                         doubleStack.push(doubleStack.pop() / doubleStack.pop());
                         break;
-                    case "%":
+                    case "%":   // TODO: Fix order of operations
                         doubleStack.push(doubleStack.pop() % doubleStack.pop());
                         break;
                     default:
@@ -102,8 +102,17 @@ public class ArithmeticTerm {
      */
     public static void main(String[] args) {
         double value;
+
+        // Constructor test
         ArithmeticTerm term = new ArithmeticTerm("1 2 3 4 5");
+
+        // toString() test
+        System.out.println(term.toString());
+
+        // reverse() test
         term.reverse();
+        System.out.println(term.toString());
+
         ArithmeticTerm term2 = new ArithmeticTerm("5.1 9 8.88 + 4 6 * * 7 + *");
         value = term2.evaluate();
         ArithmeticTerm term3 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
