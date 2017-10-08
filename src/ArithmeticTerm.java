@@ -125,10 +125,6 @@ public class ArithmeticTerm {
                         value1 = doubleStack.pop();
                         doubleStack.push(value1 % value2);
                         break;
-                    default:
-                        throw new IllegalArgumentException(
-                                "Only numerical or operator characters can be evaluated."
-                        );
                 }
             }
         }
@@ -187,9 +183,15 @@ public class ArithmeticTerm {
         term4.test();
         term5.test();
 
-        // Illegal character test case constructor
+        // Illegal character test case
         ArithmeticTerm term6 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
-        term6.test();
+
+        // Insufficient operands test case
+        ArithmeticTerm term7 = new ArithmeticTerm("5.1 9 8.88 - 4 6 + * % /");
+
+        // Insufficient operators test case
+        ArithmeticTerm term8 = new ArithmeticTerm("5.1 9 8.88 - 4 6 + * 7 %");
+
     }
 
     /**
