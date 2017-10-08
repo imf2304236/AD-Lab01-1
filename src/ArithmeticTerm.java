@@ -18,9 +18,36 @@ public class ArithmeticTerm {
      * Constructor method
      * @param input String to be stored as the expression field
      */
-    public ArithmeticTerm(String input) {
+    public ArithmeticTerm(String input) throws IllegalArgumentException {
+        StringTokenizer tokenizer = new StringTokenizer(input);
+        int operands = 0;
+        int binaryOps = 0;
+        double d;
 
-        expression = input;
+        while (tokenizer.hasMoreTokens()) {
+            String currentToken = tokenizer.nextToken();
+
+            try {
+                d = Double.parseDouble(currentToken);
+                operands++;
+            } catch (NumberFormatException e) {
+                if (currentToken.matches("[-+*/%]")) {
+                    binaryOps++;
+                } else {
+                    throw new IllegalArgumentException("Only numerical or operator characters can be evaluated.");
+                }
+            }
+        }
+
+        if (operands != binaryOps + 1) {
+            throw new IllegalArgumentException("Number of operands and operators does not match.");
+        } else if (operands <= 0) {
+            throw new IllegalArgumentException("No operands included in expression.");
+        } else if (binaryOps <= 0) {
+            throw new IllegalArgumentException("No binary operators included in expression.");
+        } else {
+            expression = input;
+        }
     }
 
     /**
@@ -75,7 +102,6 @@ public class ArithmeticTerm {
                 d = Double.parseDouble(currentToken);
                 doubleStack.push(d);
             } catch (NumberFormatException e) {
-
 
                 switch (currentToken) {
                     case "+":
@@ -145,10 +171,8 @@ public class ArithmeticTerm {
 
     /**
      * Main method to construct test cases and call test() on each
-     *
-     *
      */
-    public static void main2(String args[]) {
+    public static void main(String args[]) {
         // Test case constructors
         ArithmeticTerm term1 = new ArithmeticTerm("5.1 9 /");
         ArithmeticTerm term2 = new ArithmeticTerm("5.1 9 8.88 % /");
@@ -156,22 +180,22 @@ public class ArithmeticTerm {
         ArithmeticTerm term4 = new ArithmeticTerm("5.1 9 8.88 + 4 6 * % /");
         ArithmeticTerm term5 = new ArithmeticTerm("5.1 9 8.88 - 4 6 + * 7 % /");
 
-        // Illegal character test case constructor
-        // ArithmeticTerm term6 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
-
         // Test method call on each test case
         term1.test();
         term2.test();
         term3.test();
         term4.test();
         term5.test();
-        // term6.test();
+
+        // Illegal character test case constructor
+        ArithmeticTerm term6 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
+        term6.test();
     }
 
     /**
-     * Second test method for convert()
+     * Second test method for toString(), convert() & evaluate()
      */
-    public static void main(String args[]) {
+    public static void main2(String args[]) {
         // Test case constructor
         ArithmeticTerm term1 = new ArithmeticTerm("( ( 4.3 * 1e-1 ) - .4 )");
 
@@ -179,10 +203,12 @@ public class ArithmeticTerm {
         System.out.println("term.toString()  : " + term1.toString());
 
         // convert() test
-        System.out.printf("term.convert()   : %f\n", term1.convert());
+        String conversion = term1.convert();
+        System.out.printf("term.convert()   : %s\n", conversion);
 
         // evaluate() test
-        System.out.printf("term.evaluate()      : %f\n", term1.evaluate());
+        ArithmeticTerm term2 = new ArithmeticTerm(conversion);
+        System.out.printf("term.evaluate()  : %f\n", term2.evaluate());
     }
 
     /**
