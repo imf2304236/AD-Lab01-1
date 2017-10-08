@@ -2,8 +2,14 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 /**
- * Labs
- * Created by Ian Fennie on 02.10.17.
+ * ADL Lab 01
+ * Ian Fennie: 2304236
+ * 02.10.17.
+ *
+ * We're submitting our project as two complete solutions, one per author.
+ * We have not used each other's evaluate()/convert() methods but rather
+ * made our own. Both solutions work and are fairly similar, the main
+ * differences being in our error handling and the way we conduct our testing.
  */
 public class ArithmeticTerm {
     private String expression;
@@ -138,40 +144,59 @@ public class ArithmeticTerm {
     }
 
     /**
-     * Test method
-     * @param args
+     * Main method to construct test cases and call test() on each
+     *
+     *
      */
-    public static void main(String[] args) {
-        // Constructor test
-        ArithmeticTerm term = new ArithmeticTerm("1 2 3 4 5");
+    public static void main2(String args[]) {
+        // Test case constructors
+        ArithmeticTerm term1 = new ArithmeticTerm("5.1 9 /");
+        ArithmeticTerm term2 = new ArithmeticTerm("5.1 9 8.88 % /");
+        ArithmeticTerm term3 = new ArithmeticTerm("5.1 9 8.88 * 4 % /");
+        ArithmeticTerm term4 = new ArithmeticTerm("5.1 9 8.88 + 4 6 * % /");
+        ArithmeticTerm term5 = new ArithmeticTerm("5.1 9 8.88 - 4 6 + * 7 % /");
 
-        // toString() test
-        System.out.println("term.toString()      : " + term.toString());
+        // Illegal character test case constructor
+        // ArithmeticTerm term6 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
 
-        // reverse() test
-        term.reverse();
-        System.out.println("term.reverse()       : " + term.toString());
-
-        // evaluate() test
-        ArithmeticTerm term2 = new ArithmeticTerm("5.1 9 8.88 + 4 6 * * 7 + *");
-        System.out.println("term2.toString()     : " + term2.toString());
-        System.out.printf("term2.evaluate()     : %f\n", term2.evaluate());
-
-        // Illegal character test
-        ArithmeticTerm term4 = new ArithmeticTerm("5.1 9 8.88 ? 4 6 * * 7 + *");
-        System.out.printf("term4.toString()     : %s\n", term4.toString());
-        System.out.printf("\nterm4.evaluate()    : %f", term4.evaluate());
+        // Test method call on each test case
+        term1.test();
+        term2.test();
+        term3.test();
+        term4.test();
+        term5.test();
+        // term6.test();
     }
 
     /**
-     * Second test method
-     * @param args
+     * Second test method for convert()
      */
-    public static void main2(String[] args) {
-        // convert() test
-        ArithmeticTerm term3 = new ArithmeticTerm("( ( 4.3 * 1e-1 ) - .4 )");
-        System.out.println("term3.convert()      : " + term3.convert());
-        System.out.printf("term3.evaluate()     : %f\n", term3.evaluate());
+    public static void main(String args[]) {
+        // Test case constructor
+        ArithmeticTerm term1 = new ArithmeticTerm("( ( 4.3 * 1e-1 ) - .4 )");
 
+        // toString() test
+        System.out.println("term.toString()  : " + term1.toString());
+
+        // convert() test
+        System.out.printf("term.convert()   : %f\n", term1.convert());
+
+        // evaluate() test
+        System.out.printf("term.evaluate()      : %f\n", term1.evaluate());
+    }
+
+    /**
+     * Test method for toString(), evaluate() & reverse()
+     */
+    public void test() {
+        // toString() test
+        System.out.println("term.toString()  : " + this.toString());
+
+        // evaluate() test
+        System.out.printf("term.evaluate()  : %f\n", this.evaluate());
+
+        // reverse() test
+        this.reverse();
+        System.out.println("term.reverse()   : " + this.toString());
     }
 }
