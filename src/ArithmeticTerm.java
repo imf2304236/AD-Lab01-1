@@ -8,6 +8,8 @@ import java.util.StringTokenizer;
  * Ian Fennie: 2304236
  * 02.10.17.
  *
+ * Project file compiled with Javac using JetBrains IntelliJ IDEA 2017.2.5
+ *
  * We're submitting our project as two complete solutions, one per author.
  * We have not used each other's evaluate()/convert() methods but rather
  * made our own. Both solutions work and are fairly similar, the main
@@ -170,17 +172,18 @@ public class ArithmeticTerm {
     }
 
     /**
-     * Main method to construct test cases and call test() on each
+     * Main method to success and failure test cases
+     * @param args String of arguments passed to main method
      */
     public static void main(String args[]) {
         ArithmeticTerm.test();
-
         ArithmeticTerm.testIllegalCharacter();
         ArithmeticTerm.testIllegalNumOfOps();
     }
 
     /**
-     * Second test method for toString(), convert() & evaluate()
+     * Second main method to test convert() and evaluate()
+     * @param args String of arguments passed to main method
      */
     public static void main2(String args[]) {
         ArithmeticTerm.testConvert();
