@@ -4,9 +4,10 @@ import static org.junit.Assert.*;
 import java.util.Stack;
 import java.util.StringTokenizer;
 /**
+ * <pre>
  * ADL Lab 01
  * Ian Fennie: 2304236
- * 02.10.17.
+ * 02.10.17
  *
  * Project file compiled with Javac using JetBrains IntelliJ IDEA 2017.2.5
  *
@@ -14,6 +15,7 @@ import java.util.StringTokenizer;
  * We have not used each other's evaluate()/convert() methods but rather
  * made our own. Both solutions work and are fairly similar, the main
  * differences being in our error handling and the way we conduct our testing.
+ * </pre>
  */
 public class ArithmeticTerm {
     private String expression;
@@ -21,6 +23,7 @@ public class ArithmeticTerm {
     /**
      * Constructor method
      * @param input String to be stored as the expression field
+     * @throws IllegalArgumentException if a non-mathematical character is detected in the argument string
      */
     public ArithmeticTerm(String input) throws IllegalArgumentException {
         StringTokenizer tokenizer = new StringTokenizer(input);
@@ -91,9 +94,8 @@ public class ArithmeticTerm {
     /**
      * Method to evaluate the Postfix expression field
      * @return double value which the expression field evaluates to
-     * @throws IllegalArgumentException if an unknown character is detected in string
      */
-    public double evaluate() throws IllegalArgumentException {
+    public double evaluate() {
         double value;
         StringTokenizer tokenizer = new StringTokenizer(expression);
         Stack<Double> doubleStack = new Stack<>();
@@ -143,7 +145,7 @@ public class ArithmeticTerm {
      * into a postfix expression with the Infix to Postfix algorithm.
      * @return String of converted Postfix expression
      */
-    public String convert() throws NumberFormatException {
+    public String convert() {
         String postfix;
         Double d;
         Stack<String> opStack = new Stack<>();
